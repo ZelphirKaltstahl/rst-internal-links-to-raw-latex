@@ -1,9 +1,10 @@
 import sys
 import os.path
 
-import RSTInternalLinks.FileReader as FileReader
-import RSTInternalLinks.FileWriter as FileWriter
-import RSTInternalLinks.RSTInternalLinksParser as RSTInternalLinksParser
+import RSTInternalLinks.FileReader
+import RSTInternalLinks.FileWriter
+import RSTInternalLinks.RSTInternalLinksParser
+import RSTInternalLinks.HeadingsParser
 
 
 class App():
@@ -12,18 +13,17 @@ class App():
     def __init__(self):
         super().__init__()
 
-        self.rst_parser = RSTInternalLinksParser.RSTInternalLinksParser()
-        self.file_reader = FileReader.FileReader()
-        self.file_writer = FileWriter.FileWriter()
+        self.file_reader = RSTInternalLinks.FileReader.FileReader()
+        self.file_writer = RSTInternalLinks.FileWriter.FileWriter()
+        self.headings_parser = RSTInternalLinks.HeadingsParser.HeadingsParser()
+        self.rst_parser = RSTInternalLinks.RSTInternalLinksParser.RSTInternalLinksParser()
 
     def parse(self, rst_file_path):
         print('Now reading input file ...')
         rst_file_content = self.file_reader.read_file(rst_file_path)
         print('Parsing input file ...')
-        rst_file_content = self.rst_parser.add_raw_latex_rst_role(
-            rst_file_content
-        )
-        rst_file_content = self.rst_parser.parse(rst_file_content)
+        heading_labels = self.headings_parser.parse(rst_file_content)
+        rst_file_content = self.rst_parser.parse(rst_file_content, heading_labels)
         print('Writing output file ...')
         self.file_writer.write(rst_file_path + '.out', rst_file_content)
         print('Successfully wrote output file.')
