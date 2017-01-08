@@ -157,7 +157,7 @@ class HeadingsParser():
                 print('replacing chapter heading')
                 heading_labels.append(self.heading_to_label(line, 'chapter'))
                 rst_file_content[lineno] = ':raw-latex:`\chapter{' + line + '}`'
-                rst_file_content[lineno + 1] = ':latex:`\label{' + self.heading_to_label(line, 'chapter') + '}`'
+                rst_file_content[lineno + 1] = ':raw-latex:`\label{' + self.heading_to_label(line, 'chapter') + '}`'
 
             # headings level 2
             # print('looking for h2 ...')
@@ -170,7 +170,7 @@ class HeadingsParser():
                 print('found a h2:', line)
                 heading_labels.append(self.heading_to_label(line, 'section'))
                 rst_file_content[lineno] = ':raw-latex:`\section{' + line + '}`'
-                rst_file_content[lineno + 1] = ':latex:`\label{' + self.heading_to_label(line, 'section') + '}`'
+                rst_file_content[lineno + 1] = ':raw-latex:`\label{' + self.heading_to_label(line, 'section') + '}`'
 
             # headings level 3
             # print('looking for h3 ...')
@@ -183,7 +183,7 @@ class HeadingsParser():
                 print('found a h3:', line)
                 heading_labels.append(self.heading_to_label(line, 'subsection'))
                 rst_file_content[lineno] = ':raw-latex:`\subsection{' + line + '}`'
-                rst_file_content[lineno + 1] = ':latex:`\label{' + self.heading_to_label(line, 'subsection') + '}`'
+                rst_file_content[lineno + 1] = ':raw-latex:`\label{' + self.heading_to_label(line, 'subsection') + '}`'
 
             # headings level 4
             # print('looking for h4 ...')
@@ -196,7 +196,7 @@ class HeadingsParser():
                 print('found a h4:', line)
                 heading_labels.append(self.heading_to_label(line, 'subsubsection'))
                 rst_file_content[lineno] = ':raw-latex:`\subsubsection{' + line + '}`'
-                rst_file_content[lineno + 1] = ':latex:`\label{' + self.heading_to_label(line, 'subsubsection') + '}`'
+                rst_file_content[lineno + 1] = ':raw-latex:`\label{' + self.heading_to_label(line, 'subsubsection') + '}`'
 
             # headings level 5
             # print('looking for h5 ...')
@@ -209,7 +209,7 @@ class HeadingsParser():
                 print('found a h5:', line)
                 heading_labels.append(self.heading_to_label(line, 'paragraph'))
                 rst_file_content[lineno] = ':raw-latex:`\paragraph{' + line + '}`'
-                rst_file_content[lineno + 1] = ':latex:`\label{' + self.heading_to_label(line, 'paragraph') + '}`'
+                rst_file_content[lineno + 1] = ':raw-latex:`\label{' + self.heading_to_label(line, 'paragraph') + '}`'
 
             # headings level 6
             # print('looking for h6 ...')
@@ -222,7 +222,7 @@ class HeadingsParser():
                 print('found a h6:', line)
                 heading_labels.append(self.heading_to_label(line, 'subparagraph'))
                 rst_file_content[lineno] = ':raw-latex:`\subparagraph{' + line + '}`'
-                rst_file_content[lineno + 1] = ':latex:`\label{' + self.heading_to_label(line, 'subparagraph') + '}`'
+                rst_file_content[lineno + 1] = ':raw-latex:`\label{' + self.heading_to_label(line, 'subparagraph') + '}`'
 
         return heading_labels
 
