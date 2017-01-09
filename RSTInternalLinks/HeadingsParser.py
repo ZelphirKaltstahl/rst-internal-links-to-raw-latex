@@ -19,39 +19,39 @@ class HeadingsParser():
         self.title_end_marker_regex = re.compile(r'[=]{3,}')
         self.title_content_regex = re.compile(
             r'''
-            ^                         # beginning of line
-            [ ]                       # one whitespace
-            [A-Za-z0-9]+              # alphanumerical string, no whitespace
-            (?P<title>[A-Za-z0-9 ]+)  # alphanumerical string, whitespace ok
-            [A-Za-z0-9]+              # alphanumerical string, no whitespace
-            [ ]                       # one whitespace
-            $                         # end of line
-            ''', re.VERBOSE
+            ^                               # beginning of line
+            [ ]                             # one whitespace
+            [A-Za-z0-9äöüÄÖÜ]+              # alphanumerical string, no whitespace
+            (?P<title>[A-Za-z0-9äöüÄÖÜ ]+)  # alphanumerical string, whitespace ok
+            [A-Za-z0-9äöüÄÖÜ]+              # alphanumerical string, no whitespace
+            [ ]                             # one whitespace
+            $                               # end of line
+            ''', re.VERBOSE|re.UNICODE
         )
 
         self.subtitle_start_marker_regex = re.compile(r'[-]{3,}')
         self.subtitle_end_marker_regex = re.compile(r'[-]{3,}')
         self.subtitle_content_regex = re.compile(
             r'''
-            ^                            # beginning of line
-            [ ]                          # one whitespace
-            [A-Za-z0-9]+                 # alphanumerical string, no whitespace
-            (?P<subtitle>[A-Za-z0-9 ]+)  # alphanumerical string, whitespace ok
-            [A-Za-z0-9]+                 # alphanumerical string, no whitespace
-            [ ]                          # one whitespace
-            $                            # end of line
-            ''', re.VERBOSE
+            ^                                  # beginning of line
+            [ ]                                # one whitespace
+            [A-Za-z0-9äöüÄÖÜ]+                 # alphanumerical string, no whitespace
+            (?P<subtitle>[A-Za-z0-9äöüÄÖÜ ]+)  # alphanumerical string, whitespace ok
+            [A-Za-z0-9äöüÄÖÜ]+                 # alphanumerical string, no whitespace
+            [ ]                                # one whitespace
+            $                                  # end of line
+            ''', re.VERBOSE|re.UNICODE
         )
 
         # Headings cannot begin with whitespace
         self.h_content_regex = re.compile(
             r'''
-            ^                # beginning of line
-            [A-Za-z0-9(]    # alphanum
-            [A-Za-z0-9,() -]*  # alphanum or space
-            [A-Za-z0-9)]    # alphanum
-            $                # end of line
-            ''', re.VERBOSE
+            ^                        # beginning of line
+            [A-Za-z0-9äöüÄÖÜ(]       # alphanum
+            [A-Za-z0-9äöüÄÖÜ,() -]*  # alphanum or space
+            [A-Za-z0-9äöüÄÖÜ)]       # alphanum
+            $                        # end of line
+            ''', re.VERBOSE|re.UNICODE
         )
 
         # chapter
