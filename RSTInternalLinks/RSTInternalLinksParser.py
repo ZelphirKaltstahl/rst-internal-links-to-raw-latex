@@ -33,7 +33,7 @@ class RSTInternalLinksParser():
         self.internal_link_multi_word_reference = re.compile(
             r'[\s^]+`(?P<link_key>[^\[\]`]+)`_(?!_)')
 
-    def parse(self, rst_file_content, heading_labels):
+    def parse(self, rst_file_content, headings):
         return rst_file_content
 
 

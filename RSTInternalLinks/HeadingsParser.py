@@ -70,8 +70,8 @@ class HeadingsParser():
     def parse(self, rst_file_content):
         self.title = self.find_title(rst_file_content)
         self.subtitle_content_regex = self.find_subtitle(rst_file_content)
-        heading_labels = self.find_heading_labels(rst_file_content)
-        return heading_labels
+        headings_dict = self.find_heading_labels(rst_file_content)
+        return headings_dict
 
     def find_title(self, rst_file_content):
         print('looking for title ...')
@@ -134,7 +134,8 @@ class HeadingsParser():
 
     def find_heading_labels(self, rst_file_content):
         print('looking for headings ...')
-        heading_labels = []
+        headings_dict = {}
+        # heading_labels = []
         for lineno, line in enumerate(rst_file_content):
             # print('current line:', lineno)
             previous_line = ""
@@ -155,7 +156,8 @@ class HeadingsParser():
             ):
                 print('found a h1:', line)
                 print('replacing chapter heading')
-                heading_labels.append(self.heading_to_label(line, 'chapter'))
+                headings_dict[line] = self.heading_to_label(line, 'chapter')
+                # heading_labels.append(self.heading_to_label(line, 'chapter'))
                 rst_file_content[lineno] = ':raw-latex:`\chapter{' + line + '}`'
                 rst_file_content[lineno + 1] = ':raw-latex:`\label{' + self.heading_to_label(line, 'chapter') + '}`'
 
@@ -168,7 +170,8 @@ class HeadingsParser():
                 len(self.h_content_regex.match(line).group()) == len(self.h2_underlining_regex.match(next_line).group())
             ):
                 print('found a h2:', line)
-                heading_labels.append(self.heading_to_label(line, 'section'))
+                headings_dict[line] = self.heading_to_label(line, 'section')
+                # heading_labels.append(self.heading_to_label(line, 'section'))
                 rst_file_content[lineno] = ':raw-latex:`\section{' + line + '}`'
                 rst_file_content[lineno + 1] = ':raw-latex:`\label{' + self.heading_to_label(line, 'section') + '}`'
 
@@ -181,7 +184,8 @@ class HeadingsParser():
                 len(self.h_content_regex.match(line).group()) == len(self.h3_underlining_regex.match(next_line).group())
             ):
                 print('found a h3:', line)
-                heading_labels.append(self.heading_to_label(line, 'subsection'))
+                # heading_labels.append(self.heading_to_label(line, 'subsection'))
+                headings_dict[line] = self.heading_to_label(line, 'subsection')
                 rst_file_content[lineno] = ':raw-latex:`\subsection{' + line + '}`'
                 rst_file_content[lineno + 1] = ':raw-latex:`\label{' + self.heading_to_label(line, 'subsection') + '}`'
 
@@ -194,7 +198,8 @@ class HeadingsParser():
                 len(self.h_content_regex.match(line).group()) == len(self.h4_underlining_regex.match(next_line).group())
             ):
                 print('found a h4:', line)
-                heading_labels.append(self.heading_to_label(line, 'subsubsection'))
+                # heading_labels.append(self.heading_to_label(line, 'subsubsection'))
+                headings_dict[line] = self.heading_to_label(line, 'subsubsection')
                 rst_file_content[lineno] = ':raw-latex:`\subsubsection{' + line + '}`'
                 rst_file_content[lineno + 1] = ':raw-latex:`\label{' + self.heading_to_label(line, 'subsubsection') + '}`'
 
@@ -207,7 +212,8 @@ class HeadingsParser():
                 len(self.h_content_regex.match(line).group()) == len(self.h5_underlining_regex.match(next_line).group())
             ):
                 print('found a h5:', line)
-                heading_labels.append(self.heading_to_label(line, 'paragraph'))
+                # heading_labels.append(self.heading_to_label(line, 'paragraph'))
+                headings_dict[line] = self.heading_to_label(line, 'paragraph')
                 rst_file_content[lineno] = ':raw-latex:`\paragraph{' + line + '}`'
                 rst_file_content[lineno + 1] = ':raw-latex:`\label{' + self.heading_to_label(line, 'paragraph') + '}`'
 
@@ -220,11 +226,12 @@ class HeadingsParser():
                 len(self.h_content_regex.match(line).group()) == len(self.h6_underlining_regex.match(next_line).group())
             ):
                 print('found a h6:', line)
-                heading_labels.append(self.heading_to_label(line, 'subparagraph'))
+                # heading_labels.append(self.heading_to_label(line, 'subparagraph'))
+                headings_dict[line] = self.heading_to_label(line, 'subparagraph')
                 rst_file_content[lineno] = ':raw-latex:`\subparagraph{' + line + '}`'
                 rst_file_content[lineno + 1] = ':raw-latex:`\label{' + self.heading_to_label(line, 'subparagraph') + '}`'
 
-        return heading_labels
+        return headings_dict
 
     def heading_to_label(self, heading_text, level):
         heading_text = heading_text.lower()
