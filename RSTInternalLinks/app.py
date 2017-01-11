@@ -16,14 +16,18 @@ class App():
         self.file_reader = RSTInternalLinks.FileReader.FileReader()
         self.file_writer = RSTInternalLinks.FileWriter.FileWriter()
         self.headings_parser = RSTInternalLinks.HeadingsParser.HeadingsParser()
-        self.rst_parser = RSTInternalLinks.RSTInternalLinksParser.RSTInternalLinksParser()
 
     def parse(self, rst_file_path):
         print('Now reading input file ...')
         rst_file_content = self.file_reader.read_file(rst_file_path)
-        print('Parsing input file ...')
+
+        print('Parsing input file for headings ...')
         headings_dict = self.headings_parser.parse(rst_file_content)
-        rst_file_content = self.rst_parser.parse(rst_file_content, headings_dict)
+
+        print('Parsing input file for references ...')
+        self.rst_parser = RSTInternalLinks.RSTInternalLinksParser.RSTInternalLinksParser(headings_dict)
+        rst_file_content = self.rst_parser.parse(rst_file_content)
+
         print('Writing output file ...')
         self.file_writer.write(rst_file_path + '.out', rst_file_content)
         print('Successfully wrote output file.')
