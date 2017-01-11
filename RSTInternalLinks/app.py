@@ -23,6 +23,9 @@ class App():
 
         print('Parsing input file for headings ...')
         headings_dict = self.headings_parser.parse(rst_file_content)
+        print('[DEBUG]: HEADINGS FOUND:')
+        for key, value in headings_dict.items():
+            print('KEY:|{key}|, VALUE:|{value}|'.format(key=key, value=value))
 
         print('Parsing input file for references ...')
         self.rst_parser = RSTInternalLinks.RSTInternalLinksParser.RSTInternalLinksParser(headings_dict)

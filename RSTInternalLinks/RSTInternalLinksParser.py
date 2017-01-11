@@ -13,7 +13,7 @@ class RSTInternalLinksParser():
             r'''
             `       # literal backtick
             (?P<link_key>          # start of named group
-            [a-zA-Z0-9ßäöüÄÖÜ -]+  # letter or
+            [a-zA-Z0-9ßäöüÄÖÜ() -]+  # letter or
                                    # number or
                                    # umlaut or
                                    # space or
@@ -129,7 +129,8 @@ class RSTInternalLinksParser():
                     # replace the match object in the line
                     print('[DEBUG]:', ' now replacing heading reference in line:\n|', line, '|', sep='')
                     rst_file_content[lineno] = line.replace(match_object.group(), rst_raw_latex_link_reference)
-                    print('[DEBUG]:', ' line is now:\n|', line, '|', sep='')
+                    line = rst_file_content[lineno]
+                    print('[DEBUG]:', ' line is now:\n|', rst_file_content[lineno], '|', sep='')
 
     def heading_link_to_latex_label_reference(self, heading_link):
         return '\hyperref[{key}]{{{text}}}' \
