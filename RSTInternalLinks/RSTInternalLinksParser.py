@@ -9,24 +9,24 @@ class RSTInternalLinksParser():
         self.headings = headings
 
         self.rst_reference_definition_regex = re.compile(r'\.\. _(?P<link_key>[^\[\]_`:]+):', re.UNICODE)
-        self.rst_reference_multi_word_regex = re.compile(
-            r'''
-            `                        # literal backtick
-
-            (?P<link_key>            # start of named group
-
-            [a-zA-Z0-9ßäöüÄÖÜ() -]+  # letter or
-                                     # number or
-                                     # umlaut or
-                                     # space or
-                                     # dash
-
-            )                        # end of named group
-
-            `                        # literal backtick
-
-            _                        # literal underscore
-            ''', re.VERBOSE|re.UNICODE)
+#         self.rst_reference_multi_word_regex = re.compile(
+#             r'''
+#             `                        # literal backtick
+#
+#             (?P<link_key>            # start of named group
+#
+#             [a-zA-Z0-9ßäöüÄÖÜ() -]+  # letter or
+#                                      # number or
+#                                      # umlaut or
+#                                      # space or
+#                                      # dash
+#
+#             )                        # end of named group
+#
+#             `                        # literal backtick
+#
+#             _                        # literal underscore
+#             ''', re.VERBOSE|re.UNICODE)
 
         self.rst_target_single_word_regex = re.compile(
             r'''
@@ -82,7 +82,7 @@ class RSTInternalLinksParser():
             (?P<link_key>[a-zA-Z0-9ßäöüÄÖÜ()_ -]+)
             `
             _
-            (?=(\s|[.,:;/?!]|$))
+            (?=(\s|[\)\(.,:;/?!]|$))
             ''',
             re.VERBOSE|re.UNICODE
         )
