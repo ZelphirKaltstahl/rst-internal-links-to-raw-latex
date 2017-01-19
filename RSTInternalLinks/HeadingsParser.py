@@ -155,7 +155,6 @@ class HeadingsParser():
                 len(self.h_content_regex.match(line).group()) == len(self.h1_underlining_regex.match(next_line).group())
             ):
                 print('found a h1:', line)
-                print('replacing chapter heading')
                 headings_dict[line] = self.heading_to_label(line, 'chapter')
                 # heading_labels.append(self.heading_to_label(line, 'chapter'))
                 rst_file_content[lineno] = ':raw-latex:`\chapter{' + line + '}`'

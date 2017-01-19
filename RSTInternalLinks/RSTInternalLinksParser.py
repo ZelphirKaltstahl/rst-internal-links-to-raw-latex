@@ -77,12 +77,12 @@ class RSTInternalLinksParser():
 
         self.rst_reference_multi_word_regex = re.compile(
             r'''
-            (?<=[\s^])
+            (?:(?<=^)|(?<=\s))
             `
             (?P<link_key>[a-zA-Z0-9ßäöüÄÖÜ()_ -]+)
             `
             _
-            (?=(\s|[\)\(.,:;/?!]|$))
+            (?!_)  # no anonymous link
             ''',
             re.VERBOSE|re.UNICODE
         )
