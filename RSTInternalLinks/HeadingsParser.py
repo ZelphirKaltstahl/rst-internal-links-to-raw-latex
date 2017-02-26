@@ -47,9 +47,9 @@ class HeadingsParser():
         self.h_content_regex = re.compile(
             r'''
             ^                        # beginning of line
-            [A-Za-z0-9äöüÄÖÜ(]       # alphanum
-            [A-Za-z0-9äöüÄÖÜ,() -]*  # alphanum or space
-            [A-Za-z0-9äöüÄÖÜ)]       # alphanum
+            [A-Za-z0-9äöüÄÖÜß(]       # alphanum
+            [A-Za-z0-9äöüÄÖÜß,() -]*  # alphanum or space
+            [A-Za-z0-9äöüÄÖÜß)]       # alphanum
             $                        # end of line
             ''', re.VERBOSE|re.UNICODE
         )
@@ -70,8 +70,7 @@ class HeadingsParser():
     def parse(self, rst_file_content):
         self.title = self.find_title(rst_file_content)
         self.subtitle_content_regex = self.find_subtitle(rst_file_content)
-        headings_dict = self.find_heading_labels(rst_file_content)
-        return headings_dict
+        return self.find_heading_labels(rst_file_content)
 
     def find_title(self, rst_file_content):
         print('looking for title ...')
@@ -138,6 +137,10 @@ class HeadingsParser():
         # heading_labels = []
         for lineno, line in enumerate(rst_file_content):
             # print('current line:', lineno)
+            # print('current line:', line)
+            # if line.startswith("Schlussfolgerungen"):
+            #     print('current line:', line)
+                
             previous_line = ""
             if lineno > 0:
                 previous_line = rst_file_content[lineno - 1]
@@ -149,7 +152,7 @@ class HeadingsParser():
             # headings level 1
             # print('looking for h1 ...')
             if (
-                previous_line == '' and
+                (previous_line.isspace() or previous_line == '') and
                 self.h_content_regex.match(line) and
                 self.h1_underlining_regex.match(next_line) and
                 len(self.h_content_regex.match(line).group()) == len(self.h1_underlining_regex.match(next_line).group())
@@ -164,7 +167,7 @@ class HeadingsParser():
             # headings level 2
             # print('looking for h2 ...')
             if (
-                previous_line == '' and
+                (previous_line.isspace() or previous_line == '') and
                 self.h_content_regex.match(line) and
                 self.h2_underlining_regex.match(next_line) and
                 len(self.h_content_regex.match(line).group()) == len(self.h2_underlining_regex.match(next_line).group())
@@ -178,7 +181,7 @@ class HeadingsParser():
             # headings level 3
             # print('looking for h3 ...')
             if (
-                previous_line == '' and
+                (previous_line.isspace() or previous_line == '') and
                 self.h_content_regex.match(line) and
                 self.h3_underlining_regex.match(next_line) and
                 len(self.h_content_regex.match(line).group()) == len(self.h3_underlining_regex.match(next_line).group())
@@ -192,7 +195,7 @@ class HeadingsParser():
             # headings level 4
             # print('looking for h4 ...')
             if (
-                previous_line == '' and
+                (previous_line.isspace() or previous_line == '') and
                 self.h_content_regex.match(line) and
                 self.h4_underlining_regex.match(next_line) and
                 len(self.h_content_regex.match(line).group()) == len(self.h4_underlining_regex.match(next_line).group())
@@ -206,7 +209,7 @@ class HeadingsParser():
             # headings level 5
             # print('looking for h5 ...')
             if (
-                previous_line == '' and
+                (previous_line.isspace() or previous_line == '') and
                 self.h_content_regex.match(line) and
                 self.h5_underlining_regex.match(next_line) and
                 len(self.h_content_regex.match(line).group()) == len(self.h5_underlining_regex.match(next_line).group())
@@ -220,7 +223,7 @@ class HeadingsParser():
             # headings level 6
             # print('looking for h6 ...')
             if (
-                previous_line == '' and
+                (previous_line.isspace() or previous_line == '') and
                 self.h_content_regex.match(line) and
                 self.h6_underlining_regex.match(next_line) and
                 len(self.h_content_regex.match(line).group()) == len(self.h6_underlining_regex.match(next_line).group())
